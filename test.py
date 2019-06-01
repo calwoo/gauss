@@ -5,12 +5,10 @@ from kernels import *
 from utils import *
 
 
-kern = RBFKernel(theta=0.8, sigma=0.8)
 
-x = np.array([1,2])
-y = np.array([0,0])
-print(kern.eval(x,y))
-
+rbf = RBFKernel(theta=0.8, sigma=0.8)
+periodic = PeriodicKernel(theta=0.8, periodicity=0.5, sigma=0.8)
+linear = LinearKernel(b=0.8, c=0, sigma=0.3)
 
 
-kernel_heatmap(kern)
+kernel_heatmap(linear)

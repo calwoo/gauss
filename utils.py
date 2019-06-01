@@ -10,5 +10,5 @@ def kernel_heatmap(kernel):
     for i, x in enumerate(xs):
         for j, y in enumerate(xs):
             heat[i][j] = kernel.eval(x, y)
-    plt.imshow(heat, cmap="PuRd")
+    plt.imshow(heat, cmap="GnBu")
     plt.show()

@@ -20,3 +20,28 @@ class RBFKernel(Kernel):
     def eval(self, x, y):
         dist = np.sum((x-y)**2)
         return self.sigma * np.exp(-dist / (2*self.theta**2))
+
+    
+class PeriodicKernel(Kernel):
+    """periodic kernel from
+        https://distill.pub/2019/visual-exploration-gaussian-processes"""
+    def __init__(self, theta, periodicity, sigma=1.0):
+        super(PeriodicKernel, self).__init__()
+        self.theta = theta
+        self.periodicity = periodicity
+        
+    def eval(self, x, y):
+        dist = np.sqrt((x-y)**2)
+        logit = -2*np.sin(np.pi * dist / self.periodicity)**2 / self.theta**2
+        return self.sigma * np.exp(logit)
+
+
+class LinearKernel(Kernel):
+    """linear polynomial kernel"""
+    def __init__(self, b=0, c=0, sigma=1.0):
+        super(LinearKernel, self).__init__()
+        self.b = b
+        self.c = c
+
+    def eval(self, x, y):
+        return self.b**2 + self.sigma**2 * np.dot(x-self.c, y-self.c)
