@@ -1,5 +1,5 @@
 import numpy as np
-
+from scipy.special import gamma, kv
 
 class Kernel:
     """initializes default L2 distance kernel"""
@@ -26,7 +26,7 @@ class PeriodicKernel(Kernel):
     """periodic kernel from
         https://distill.pub/2019/visual-exploration-gaussian-processes"""
     def __init__(self, theta, periodicity, sigma=1.0):
-        super(PeriodicKernel, self).__init__()
+        super(PeriodicKernel, self).__init__(sigma)
         self.theta = theta
         self.periodicity = periodicity
         
@@ -39,9 +39,23 @@ class PeriodicKernel(Kernel):
 class LinearKernel(Kernel):
     """linear polynomial kernel"""
     def __init__(self, b=0, c=0, sigma=1.0):
-        super(LinearKernel, self).__init__()
+        super(LinearKernel, self).__init__(sigma)
         self.b = b
         self.c = c
 
     def eval(self, x, y):
         return self.b**2 + self.sigma**2 * np.dot(x-self.c, y-self.c)
+
+class MaternKernel(Kernel):
+    """Matern kernel from
+        https://en.wikipedia.org/wiki/Mat%C3%A9rn_covariance_function"""
+    def __init__(self, rho, nu, sigma=1.0):
+        super(MaternKernel, self).__init__(sigma)
+        self.rho = rho
+        self.nu = nu
+
+    def eval(self, x, y):
+
+        
+
+        pass
