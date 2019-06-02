@@ -59,5 +59,6 @@ class GP:
         deviations = np.sqrt(np.diag(cov))
         plt.fill_between(xs, mu+2*deviations, mu-2*deviations, alpha=0.15)
         
-        plt.legend(loc="best")
+        if num_samples < 5:
+            plt.legend(loc="best")
         plt.show()
