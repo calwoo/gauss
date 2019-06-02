@@ -55,7 +55,7 @@ class MaternKernel(Kernel):
         self.nu = nu
 
     def eval(self, x, y):
-
+        dist = np.sqrt(2 * np.nu * np.sum((x-y)**2)) / self.rho
+        coef = 2**(1-self.nu) / gamma(self.nu)
+        return coef * dist**self.nu * kv(self.nu, dist)
         
-
-        pass
