@@ -18,7 +18,8 @@ class RBFKernel(Kernel):
         self.theta = theta
 
     def eval(self, x, y):
-        dist = np.sum((x-y)**2)
+        """vectorized rbf kernel"""
+        dist = np.sum(x**2, axis=1).reshape(-1,1) + np.sum(y**2, axis=1) - 2*np.dot(x, y.T)
         return self.sigma * np.exp(-dist / (2*self.theta**2))
 
     
